@@ -1,0 +1,147 @@
+CÓMO PERSONALIZAR TU REGALO
+============================
+
+1. Abre el archivo "index.html" con cualquier editor de texto
+   (Bloc de notas, VS Code, etc. — clic derecho > Abrir con).
+
+2. ÍCONOS DE LOS ÁRBOLES (los botones en los que ella hace clic)
+   Ya los agregué en la carpeta "iconos" con tus imágenes:
+   arbol1.png, arbol2.png ... arbol8.png. No necesitas tocar nada
+   aquí, ya están puestos y funcionando.
+
+3. FOTO DE FONDO
+   Guarda tu foto como "fotos/fondo.jpg" (ese nombre exacto).
+   Se ve detrás de todo el sitio, un poco oscurecida para que
+   el texto y las luciérnagas se lean bien.
+
+4. FOTOS DE RECUERDO (las que aparecen DENTRO de cada árbol)
+   Son distintas de los íconos del paso 2. Van en la carpeta
+   "fotos" con los nombres arbol1.jpg, arbol2.jpg... arbol8.jpg.
+   (Si prefieres .png, cambia también la terminación dentro del
+   código: busca "foto:" y cambia ".jpg" por ".png").
+   Si no pones ninguna, no pasa nada: se ve un detalle decorativo.
+
+5. MÚSICA Y VIDEO DE INTRODUCCIÓN
+   Necesitas TRES archivos nuevos:
+
+   - musica/Mundo1Voce.mp3
+     Suena en la pantalla de introducción (la del video en loop),
+     justo después de escribir el nombre y tocar "¡Comenzar
+     aventura!".
+
+   - musica/Mundo1Instrumental.mp3
+     Suena ya dentro del bosque, cuando toca el botón "Iniciar"
+     (ese botón aparece solo, 10 segundos después de entrar a
+     la intro).
+
+   - video/intro.mp4
+     El video de fondo en loop de la pantalla de introducción.
+     No necesita sonido propio (se reproduce muteado); el sonido
+     lo pone Mundo1Voce. Si no lo agregas, se ve un fondo oscuro
+     con el título igual, no se rompe nada.
+
+   Crea las carpetas "musica" y "video" junto a index.html si no
+   existen, y guarda ahí esos archivos con esos nombres exactos.
+   (Si tu música es .ogg o .wav, cambia la terminación dentro del
+   código: busca "Mundo1Voce" o "Mundo1Instrumental" con Ctrl+F).
+   Abajo a la derecha queda un botoncito ♪ para pausar/reanudar
+   la pista que esté sonando en cada momento.
+
+6. TUS TEXTOS
+   Busca la línea que dice:
+   ////// EDITA AQUÍ TUS ÁRBOLES ///////////////////////////
+
+   Ahí verás 8 bloques como este:
+
+   {
+     titulo: "Árbol 1",
+     fecha: "",
+     foto: "fotos/arbol1.jpg",
+     mensaje: "Escribe aquí tu mensaje para este recuerdo..."
+   },
+
+   Cambia:
+   - titulo   -> un título corto (ej: "Nuestra primera cita")
+   - fecha    -> opcional (ej: "14 de febrero, 2024")
+   - mensaje  -> tu mensaje bonito y personal
+   - foto     -> no la toques si vas a usar el mismo nombre de archivo
+
+7. Guarda el archivo y ábrelo haciendo doble clic (o con Live
+   Server en VS Code) para ver cómo va quedando. Puedes editar
+   y refrescar el navegador las veces que quieras.
+
+8. Cuando esté listo, comparte la carpeta completa (index.html +
+   carpeta iconos + carpeta fotos + carpeta musica) con tu novia,
+   por ejemplo comprimida en un .zip, o súbela a un servicio como
+   Netlify Drop (netlify.com/drop) para enviarle solo un link.
+
+9. PERSONAJES (NPCs) Y DIÁLOGOS — para árboles tipo "capítulo"
+   Un árbol puede tener, además de "foto" y "mensaje", esto:
+
+   - fondoEscena: ruta a una imagen de fondo para toda la pantalla
+     de ese capítulo (ej: "fondos/aula1.jpg"). Si no la pones, se
+     usa "foto" como siempre.
+
+   - personajes: lista de quienes aparecen parados en la escena.
+     Cada uno es { id, nombre, sprite, lado }.
+       id     -> texto corto para identificarlo (ej: "jugadora")
+       nombre -> el nombre que se muestra arriba de sus líneas
+       sprite -> ruta a su imagen (mejor con fondo transparente),
+                 en la carpeta "personajes/"
+       lado   -> "izquierda" o "derecha"
+     Si el sprite todavía no existe, se muestra una silueta con
+     la inicial del nombre mientras la agregas.
+
+   - dialogo: lista de líneas. Cada línea puede ser:
+       "Un texto normal de narración" (sin personaje que hable), o
+       { hablante: "id-del-personaje", texto: "Lo que dice" }
+     Si un árbol tiene "dialogo", ya no usa "mensaje".
+
+   El Árbol 1 ya quedó armado como ejemplo con el aula de fondo,
+   dos personajes (jugadora y chico) y unas líneas de muestra —
+   solo edítalas para poner la conversación real, y agrega la
+   imagen del chico en personajes/chico1.png cuando la tengas.
+
+10. HISTORIA COMPLETA YA ESCRITA (árboles 2 al 8)
+    Ya te dejé escrita una historia ficticia completa (inventada,
+    inspirada en ustedes) en los árboles 2 al 8, con un personaje
+    nuevo llamado "Luis" como interés romántico, y a Elizabeth,
+    Diana y Sukehiro como amigos recurrentes. Es un punto de
+    partida: cambiá nombres, chistes y lugares para que se parezca
+    más a su historia real. Le faltan estos fondos nuevos (si no
+    los agregás, se ve un degradado bonito en su lugar, no se
+    rompe nada):
+      fondos/patio.jpg, fondos/biblioteca.jpg, fondos/festival.jpg,
+      fondos/pasillo.jpg, fondos/parque.jpg,
+      fondos/bosque_atardecer.jpg
+    Y un sprite nuevo: personajes/luis.png (o se ve su silueta
+    con inicial "M" mientras no lo agregues).
+
+11. OPCIONES / ELECCIONES (nuevo)
+    Una línea de diálogo puede tener "opciones" en vez de avanzar
+    normal: se muestran botones y hay que tocar uno para seguir.
+    Cada opción puede traer una "reaccion" (una línea, o varias)
+    que se muestra justo después de elegir. Ejemplo:
+
+    {
+      hablante: "luis",
+      texto: "¿Querés ser mi novia?",
+      opciones: [
+        { texto: "Sí, obvio.", reaccion: { hablante: "luis", texto: "¡Qué feliz me hacés!" } },
+        { texto: "Dejame pensarlo... mentira, sí.", reaccion: { hablante: "luis", texto: "¡Qué mala!" } }
+      ]
+    }
+
+    Ya lo usé en varios momentos de la historia (árboles 2, 3, 4,
+    5, 6, 7 y 8) — buscá "opciones:" en cada archivo para verlos y
+    copiar el formato si querés agregar más.
+
+12. {NOMBRE} EN CUALQUIER TEXTO (nuevo)
+    Escribiendo {NOMBRE} dentro de cualquier "texto" de diálogo,
+    se reemplaza automáticamente por lo que pongas en
+    NOMBRE_PAREJA (punto 4 de más arriba) — o sea, su nombre real,
+    sin importar qué nombre de jugadora haya escrito ella al
+    empezar la partida. Lo uso en el árbol 8, que rompe la
+    ficción y le habla directamente.
+
+¡Que lo disfrute mucho! 💚

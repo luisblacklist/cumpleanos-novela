@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestro Bosque</title>
+
+<!--
+  ══════════════════════════════════════════════════════════════
+  GUÍA RÁPIDA PARA PERSONALIZAR (léela antes de tocar el código)
+  ══════════════════════════════════════════════════════════════
+
+  0) ESTRUCTURA DE ARCHIVOS (nuevo)
+     Este proyecto ahora está dividido para que sea más fácil
+     de editar y no se vuelva un solo archivo gigante:
+
+       index.html          -> solo la estructura, casi no se toca
+       estilo.css          -> todos los colores y diseño
+       motor.js             -> el "motor" del juego (bosque, menú,
+                                diálogos, música, video). NO hace
+                                falta tocarlo para escribir la historia.
+       capitulos/arbol1.js  -> el capítulo 1 (aula, personajes, diálogo)
+       capitulos/arbol2.js  -> el capítulo 2
+       ... y así hasta arbol8.js
+
+     Para escribir o cambiar la historia de un árbol, abre SOLO
+     su archivo dentro de "capitulos/". No necesitas tocar
+     motor.js ni estilo.css para eso.
+
+  1) LOS ÁRBOLES-BOTÓN (íconos)
+     - Van en una carpeta llamada "iconos" junto a index.html.
+     - Deben llamarse arbol1.png, arbol2.png, arbol3.png... hasta
+       arbol8.png (así, tal cual los tienes tú).
+     - Estos son los dibujitos de árbol en los que ella hace clic.
+
+  2) TUS FOTOS (recuerdos, dentro de cada árbol)
+     - Van en una carpeta llamada "fotos" en el mismo sitio donde
+       está este archivo index.html (ya la dejé creada).
+     - Guarda ahí tus imágenes con estos nombres exactos:
+       arbol1.jpg, arbol2.jpg, arbol3.jpg, arbol4.jpg,
+       arbol5.jpg, arbol6.jpg, arbol7.jpg, arbol8.jpg
+     - Estas son las fotos de recuerdos que aparecen DENTRO de la
+       tarjeta al hacer clic en un árbol (no son el ícono).
+     - Si un árbol no tiene foto, no pasa nada: se mostrará un
+       detalle decorativo en su lugar automáticamente.
+
+  2) FOTO DE FONDO
+     - Guarda tu foto para el fondo como "fotos/fondo.jpg"
+       (así, con ese nombre exacto). Se ve detrás de todo,
+       oscurecida un poco para que el texto y las luciérnagas
+       se lean bien encima.
+
+  3) MÚSICA Y VIDEO DE INTRODUCCIÓN
+     - Crea una carpeta llamada "musica" junto a index.html y
+       guarda ahí DOS canciones:
+         musica/Mundo1Voce.mp3         (suena en la intro, con video)
+         musica/Mundo1Instrumental.mp3 (suena ya dentro del bosque)
+       (si tus archivos son .ogg o .wav, cambia la terminación
+       dentro del código, búscalo con Ctrl+F: "Mundo1Voce" o
+       "Mundo1Instrumental").
+     - Crea también una carpeta "video" junto a index.html y
+       guarda ahí tu video de introducción como "video/intro.mp4"
+       (se reproduce en loop y sin sonido propio — el sonido lo
+       pone Mundo1Voce). Si no pones video, no pasa nada: se ve
+       un fondo oscuro con el título igual.
+     - Por cómo funcionan los navegadores, nada puede sonar solo
+       al abrir la página: por eso primero hay que escribir el
+       nombre y tocar "¡Comenzar aventura!" — ahí arrancan el
+       video y Mundo1Voce. El botón "Iniciar" aparece recién a
+       los 10 segundos; al tocarlo, empieza la partida y cambia
+
+  3.1) MÚSICA DISTINTA POR CAPÍTULO (opcional)
+     - Cada archivo de capitulos/arbolN.js puede tener su propia
+       canción con el campo "musica", por ejemplo:
+           musica: "musica/festival.mp3"
+       Si un capítulo no tiene ese campo, sigue sonando la música
+       instrumental del bosque sin interrupciones.
+     - También podés cambiar la canción A MITAD de un capítulo:
+       cualquier línea del array "dialogo" puede llevar su propio
+       "musica": "musica/otra_cancion.mp3" y desde ahí en adelante
+       suena esa, hasta que otra línea la vuelva a cambiar. Mirá
+       capitulos/arbol4.js o arbol6.js como ejemplo.
+     - Al cerrar el capítulo, vuelve a sonar automáticamente la
+       música instrumental del bosque.
+     - Guarda los archivos que necesites dentro de la carpeta
+       "musica" con esos nombres exactos (o cambiá el nombre en el
+       archivo del capítulo si preferís otro).
+
+  3.2) EFECTOS DE SONIDO (opcional): click, timbre, puerta, lluvia...
+     - Además de la música, hay un sonido de "click" que suena cada
+       vez que tocás la pantalla para avanzar el diálogo o elegís una
+       opción. Guardalo como:
+           sonidos/click.mp3
+       Si no ponés ese archivo, simplemente no suena nada (no rompe
+       el juego).
+     - También podés poner un efecto puntual en cualquier línea del
+       "dialogo" de un capítulo, con el campo "sonido", por ejemplo:
+           { sonido: "sonidos/timbre.mp3", hablante: null, texto: "(Suena el timbre.)" }
+       A diferencia de "musica", esto NO se queda sonando: es un
+       sonidito de una sola vez, pensado para timbres, puertas,
+       pasos, lluvia empezando, fuegos artificiales, etc.
+     - Ya dejé varios de estos puestos como ejemplo (podés cambiar
+       el nombre del archivo o sacarlos si no los usás):
+           sonidos/timbre.mp3            (árbol 1 y árbol 2)
+           sonidos/puerta.mp3            (árbol 1, al salir del aula)
+           sonidos/fuegos.mp3            (árbol 4, fuegos artificiales)
+           sonidos/telefono_colgar.mp3   (árbol 5, corta la llamada)
+           sonidos/lluvia.mp3            (árbol 6, empieza a llover)
+     - Todos estos archivos van sueltos dentro de una carpeta llamada
+       "sonidos", junto a "musica", "fondos", etc.
+       la música a Mundo1Instrumental.
+
+  4) TUS TEXTOS
+     - Abre el archivo del árbol que quieras editar dentro de la
+       carpeta "capitulos/" (ej: capitulos/arbol3.js).
+     - Ahí cambia "titulo" y "mensaje" (o "dialogo" si ese
+       capítulo tiene personajes) por lo que tú quieras. También
+       puedes cambiar "fecha" o borrarla si no la usas.
+     - El nombre de tu novia se pone UNA sola vez, buscando
+       NOMBRE_PAREJA aquí mismo en index.html, más abajo.
+
+  5) MODO NOVELA VISUAL (cómo se ve cada árbol al abrirlo)
+     - Cada árbol ahora se abre como un "capítulo": el texto
+       aparece letra por letra (como en un videojuego) y hay que
+       tocar la pantalla para que avance la siguiente línea.
+     - Si tu "mensaje" es corto, aparece como una sola línea.
+     - Si quieres controlar tú mismo dónde corta cada línea (por
+       ejemplo, una frase por pantalla, como en una novela visual
+       de verdad), simplemente presiona Enter DOS VECES entre
+       cada frase, dentro del mensaje (dejando una línea vacía
+       en medio). Cada bloque separado así será una pantalla.
+     - Si no separas nada, el mensaje se divide solo en frases
+       automáticamente, así que también funciona sin tocar nada.
+
+  6) MENÚ ESTILO RPG (pantalla de inicio)
+     - Antes de entrar al bosque, ahora aparece un menú tipo
+       videojuego con las opciones "Nueva Aventura", "Cargar
+       Partida" (decorativa, siempre apagada) y "Créditos".
+     - Al elegir "Nueva Aventura" se le pide su nombre, y con
+       eso arranca la música y se personaliza el saludo del
+       bosque con su nombre.
+     - Puedes cambiar el título del juego ("NUESTRO BOSQUE") y
+       el mensaje de "Créditos" buscando "rpg-titulo" y
+       "rpg-creditos-texto" más abajo en el HTML, o simplemente
+       pídeme que te lo cambie.
+
+  7) Cuando termines, abre este archivo haciendo doble clic:
+     se abre directo en el navegador, no necesitas internet
+     (salvo para las fuentes bonitas, que si no hay internet
+     igual se ve bien con una fuente de reemplazo).
+  ══════════════════════════════════════════════════════════════
+-->
+
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="fondo-foto"></div>
+<div class="luciernagas" id="luciernagas"></div>
+
+<div class="rpg-pantalla" id="rpgPantalla">
+
+  <!-- Pantalla 1: menú principal -->
+  <div class="rpg-escena-interna activa" id="rpgMenuPrincipal">
+    <div class="rpg-corazon-titulo">♥</div>
+    <h1 class="rpg-titulo" id="rpgTituloJuego">NUESTRO<br>BOSQUE</h1>
+    <p class="rpg-subtitulo">una aventura de amor</p>
+    <div class="rpg-caja">
+      <ul class="rpg-menu" id="rpgMenu">
+        <li class="seleccionado" data-accion="nueva">Nueva Aventura</li>
+        <li class="deshabilitado" data-accion="cargar">Cargar Partida</li>
+        <li data-accion="creditos">Créditos</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Pantalla 2: pedir el nombre del jugador -->
+  <div class="rpg-escena-interna" id="rpgPantallaNombre">
+    <p class="rpg-pregunta">¿Cuál es tu<br>nombre, aventurera?</p>
+    <input type="text" id="rpgInputNombre" class="rpg-input" maxlength="20" placeholder="Escribe tu nombre" autocomplete="off">
+    <button class="boton-pixel" id="rpgConfirmarNombre">¡Comenzar aventura!</button>
+    <button class="rpg-volver" id="rpgVolverDesdeNombre">‹ volver al menú</button>
+  </div>
+
+  <!-- Pantalla 3: créditos -->
+  <div class="rpg-escena-interna" id="rpgPantallaCreditos">
+    <p class="rpg-creditos-texto">Este pequeño juego<br>fue creado con todo mi cariño,<br>solo para ti.</p>
+    <button class="boton-pixel" id="rpgVolverDesdeCreditos">‹ volver al menú</button>
+  </div>
+
+</div>
+
+<!-- Pantalla de introducción: video en loop + título + botón que aparece a los 10s -->
+<div class="rpg-intro-pantalla" id="rpgPantallaIntro">
+  <video class="rpg-intro-video" id="rpgIntroVideo" src="video/intro.mp4" loop muted playsinline preload="none"></video>
+  <div class="rpg-intro-overlay"></div>
+  <button class="rpg-intro-volver" id="rpgIntroVolver">✕ volver al menú</button>
+  <div class="rpg-intro-contenido">
+    <div class="rpg-intro-titulo-wrap">
+      <span class="rpg-intro-estrella" style="top:-14px; left:-18px; font-size:1.1rem; animation-delay:0s;">✦</span>
+      <span class="rpg-intro-estrella" style="top:6px; right:-24px; font-size:1.4rem; animation-delay:0.4s;">✧</span>
+      <span class="rpg-intro-estrella" style="bottom:-10px; left:10%; font-size:0.9rem; animation-delay:0.8s;">✦</span>
+      <span class="rpg-intro-estrella" style="top:40%; left:-30px; font-size:0.8rem; animation-delay:1.1s;">✧</span>
+      <span class="rpg-intro-estrella" style="bottom:0; right:0; font-size:1.1rem; animation-delay:0.6s;">✦</span>
+      <h2 class="rpg-intro-titulo">💜Feliz Cumpleaños❤️</h2>
+    </div>
+    <button class="boton-pixel rpg-intro-boton" id="rpgIntroIniciar">Iniciar</button>
+  </div>
+</div>
+
+<div class="hud" id="hud">
+  <span class="hud-nombre" id="hudNombre"></span>
+  <span class="hud-corazones">♥♥♥♥♥</span>
+</div>
+
+<audio id="musicaIntro" src="musica/Mundo1Voce.mp3" loop preload="none"></audio>
+<audio id="musicaInstrumental" src="musica/Mundo1Instrumental.mp3" loop preload="none"></audio>
+<audio id="musicaEscena" loop preload="none"></audio>
+<button class="musica-toggle pausado" id="musicaToggle" aria-label="Reproducir o pausar música" title="Música">
+  <span class="onda">♪</span>
+</button>
+
+
+<section class="hero">
+  <span class="eyebrow">para ti</span>
+  <h1 id="heroTitulo">Bienvenida a <em>nuestro bosque</em></h1>
+  <p class="sub">
+    Una pequeña historia no tiene que ver nada con nuestra vida aunque si tiene cositas 
+    lo veras por ti misma.
+  </p>
+  <div class="flecha">↓</div>
+</section>
+
+<main class="bosque" id="bosque"></main>
+
+<div class="escena" id="escena">
+  <div class="escena-fondo" id="escenaFondo"></div>
+  <div class="escena-overlay"></div>
+  <div class="escena-personajes" id="escenaPersonajes"></div>
+  <button class="escena-cerrar" id="escenaCerrar">✕ volver al bosque</button>
+  <div class="escena-capitulo">
+    <span class="eyebrow" id="escenaEyebrow"></span>
+    <h2 id="escenaTitulo"></h2>
+  </div>
+  <div class="escena-caja">
+    <span class="escena-hablante" id="escenaHablante"></span>
+    <p class="escena-texto" id="escenaTexto"></p>
+    <div class="escena-opciones" id="escenaOpciones"></div>
+    <div class="escena-pie">
+      <div class="escena-progreso" id="escenaProgreso"></div>
+      <span class="escena-continuar" id="escenaContinuar">toca para continuar ▸</span>
+    </div>
+  </div>
+</div>
+
+<footer>hecho con ♥ solo para ti</footer>
+
+
+<script>
+  // ═══════════════════════════════════════════════════
+  //  NOMBRE DE TU PAREJA (detalle decorativo, opcional)
+  // ═══════════════════════════════════════════════════
+  window.NOMBRE_PAREJA = "Mi Amor";
+</script>
+
+<!-- Capítulos: uno por árbol. Edita el archivo de cada uno para -->
+<!-- cambiar su historia sin tocar nada más. -->
+<script src="capitulos/arbol1.js"></script>
+<script src="capitulos/arbol2.js"></script>
+<script src="capitulos/arbol3.js"></script>
+<script src="capitulos/arbol4.js"></script>
+<script src="capitulos/arbol5.js"></script>
+<script src="capitulos/arbol6.js"></script>
+<script src="capitulos/arbol7.js"></script>
+<script src="capitulos/arbol8.js"></script>
+
+<!-- Motor del juego: no hace falta tocarlo -->
+<script src="motor.js"></script>
+
+</body>
+</html>

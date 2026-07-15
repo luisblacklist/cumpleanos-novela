@@ -1,0 +1,915 @@
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,600&family=Caveat:wght@500;700&family=Nunito+Sans:wght@400;600&family=Press+Start+2P&display=swap');
+
+  :root {
+    --verde-oscuro: #10261d;
+    --verde-medio: #1f3d2c;
+    --verde-claro: #7fa583;
+    --musgo: #4c6b4f;
+    --marron: #6b4a34;
+    --marron-claro: #9c7a5b;
+    --dorado: #d9b46a;
+    --dorado-suave: #f0dba8;
+    --crema: #f6efe1;
+    --rosa: #e3a9a0;
+    --rosa-suave: #f2cfc7;
+    --sombra: rgba(6, 15, 10, 0.55);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: radial-gradient(ellipse at top, #1c3826 0%, var(--verde-oscuro) 55%, #081611 100%);
+    color: var(--crema);
+    font-family: 'Nunito Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ---------- Foto de fondo ---------- */
+  .fondo-foto {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(180deg, rgba(9, 20, 14, 0.72) 0%, rgba(9, 20, 14, 0.55) 40%, rgba(6, 15, 10, 0.85) 100%),
+      url('fotos/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  /* ---------- Luciérnagas ambientales ---------- */
+  .luciernagas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .luciernaga {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--dorado-suave);
+    box-shadow: 0 0 8px 3px rgba(240, 219, 168, 0.65);
+    animation: flotar 9s ease-in-out infinite, parpadeo 3.2s ease-in-out infinite;
+  }
+
+  @keyframes flotar {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(18px, -30px); }
+    50%  { transform: translate(-10px, -55px); }
+    75%  { transform: translate(-25px, -20px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  @keyframes parpadeo {
+    0%, 100% { opacity: 0.15; }
+    50% { opacity: 0.95; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 8rem 1.5rem 5rem;
+  }
+
+  .hero .eyebrow {
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    color: var(--dorado-suave);
+    letter-spacing: 0.04em;
+    display: block;
+    margin-bottom: 0.4rem;
+    opacity: 0.9;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    line-height: 1.1;
+    color: var(--crema);
+    text-shadow: 0 2px 24px rgba(0,0,0,0.4);
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--dorado-suave);
+  }
+
+  .hero p.sub {
+    margin-top: 1.3rem;
+    font-size: 1.05rem;
+    max-width: 46ch;
+    margin-left: auto;
+    margin-right: auto;
+    color: rgba(246, 239, 225, 0.78);
+    line-height: 1.6;
+  }
+
+  .hero .flecha {
+    margin-top: 3rem;
+    font-size: 1.8rem;
+    color: var(--dorado);
+    animation: rebote 2.2s ease-in-out infinite;
+  }
+
+  @keyframes rebote {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(10px); opacity: 1; }
+  }
+
+  /* ---------- Bosque (grid de árboles) ---------- */
+  .bosque {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 2rem 8rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.2rem 1.4rem;
+    justify-items: center;
+  }
+
+  @media (max-width: 820px) {
+    .bosque { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 460px) {
+    .bosque { grid-template-columns: repeat(2, 1fr); gap: 1.6rem 0.6rem; }
+  }
+
+  .arbol-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem;
+    color: inherit;
+    font-family: 'Caveat', cursive;
+    position: relative;
+    transition: transform 0.35s ease;
+  }
+
+  .arbol-btn:nth-child(odd) .arbol-imagen { transform: rotate(-2deg); }
+  .arbol-btn:nth-child(even) .arbol-imagen { transform: rotate(2deg); }
+  .arbol-btn:nth-child(3n) .arbol-imagen { transform: rotate(0deg) scale(1.05); }
+
+  .arbol-btn:hover,
+  .arbol-btn:focus-visible {
+    transform: translateY(-6px);
+  }
+
+  .arbol-btn:hover .arbol-imagen,
+  .arbol-btn:focus-visible .arbol-imagen {
+    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.35)) brightness(1.12);
+  }
+
+  .arbol-imagen {
+    width: 92px;
+    height: 118px;
+    object-fit: contain;
+    image-rendering: -webkit-optimize-contrast;
+    transition: transform 0.35s ease, filter 0.35s ease;
+    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.35));
+  }
+
+  .arbol-numero {
+    position: absolute;
+    top: -2px;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--rosa);
+    color: var(--verde-oscuro);
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+  }
+
+  .arbol-titulo {
+    font-size: 1.28rem;
+    color: var(--dorado-suave);
+    text-align: center;
+    line-height: 1.15;
+    max-width: 12ch;
+  }
+
+  /* pequeño corazón latiendo bajo cada árbol */
+  .arbol-btn::after {
+    content: '♥';
+    color: var(--rosa);
+    font-size: 0.85rem;
+    opacity: 0.75;
+    animation: latido 1.8s ease-in-out infinite;
+  }
+
+  @keyframes latido {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+  }
+
+  /* ---------- Escena tipo novela visual ---------- */
+  .escena {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    cursor: pointer;
+  }
+
+  .escena.abierta {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .escena-fondo {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--verde-oscuro);
+    transform: scale(1.06);
+    transition: transform 6s ease;
+  }
+
+  .escena.abierta .escena-fondo { transform: scale(1); }
+
+  .escena-fondo.sin-foto {
+    background-image:
+      radial-gradient(ellipse at 30% 20%, rgba(217,180,106,0.16), transparent 55%),
+      linear-gradient(160deg, #1c3826 0%, var(--verde-oscuro) 55%, #081611 100%) !important;
+  }
+
+  /* Pantalla negra plana: para sueños / momentos de despertar */
+  .escena-fondo.negro {
+    background-image: none !important;
+    background-color: #000 !important;
+  }
+
+  .escena-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(6,10,8,0.95) 0%, rgba(6,12,9,0.72) 32%, rgba(6,12,9,0.28) 62%, rgba(6,12,9,0.35) 100%);
+  }
+
+  /* ---------- Personajes (NPCs) dentro de una escena ---------- */
+  /* Se acomodan solos en fila (flex): si hay 2 personajes se ven grandes,
+     si hay 3 o 4 (una escena de grupo) se acomodan más chicos, uno al
+     lado del otro, y se centran automáticamente. */
+  .escena-personajes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; /* llega hasta el borde real; el cuadro de texto (z-index 2) los tapa por delante */
+    z-index: 1;
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 1.5%;
+    padding: 0 3% 0;
+  }
+
+  .escena-personaje {
+    flex: 1 1 260px;
+    max-width: min(420px, 30vw);
+    height: 92%;
+    background-size: contain;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    filter: brightness(0.5) saturate(0.7);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: filter 0.4s ease, transform 0.4s ease, opacity 0.6s ease;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8%;
+    font-family: 'Playfair Display', serif;
+    font-size: 3.4rem;
+    color: rgba(246, 239, 225, 0.3);
+  }
+
+  .escena.abierta .escena-personaje { opacity: 1; transform: translateY(0); }
+
+  /* personaje que no está en escena en este momento: se quita del todo */
+  .escena-personaje.oculto { display: none; }
+
+  .escena-personaje.activo {
+    filter: brightness(1) saturate(1);
+    transform: translateY(0) scale(1.03);
+  }
+
+  .escena-personaje.sin-sprite {
+    background-image: none !important;
+    background: linear-gradient(180deg, rgba(124,101,80,0.35), rgba(28,20,14,0.55));
+    border-radius: 20px 20px 0 0;
+    border: 1px dashed rgba(246,239,225,0.35);
+  }
+
+  .escena-hablante {
+    display: block;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dorado-suave);
+    margin-bottom: 0.35rem;
+    min-height: 1em;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .escena-hablante.visible { opacity: 0.95; }
+
+  .escena-cerrar {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 2;
+    background: rgba(16, 38, 29, 0.65);
+    color: var(--crema);
+    border: 1px solid rgba(246,239,225,0.25);
+    border-radius: 999px;
+    padding: 0.45rem 1rem;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s ease;
+  }
+  .escena-cerrar:hover { background: rgba(31, 61, 44, 0.85); }
+
+  .escena-capitulo {
+    position: absolute;
+    top: 22px;
+    left: 26px;
+    z-index: 2;
+    max-width: 70%;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s;
+  }
+
+  .escena.abierta .escena-capitulo {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .escena-capitulo .eyebrow {
+    display: block;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dorado-suave);
+    opacity: 0.85;
+    margin-bottom: 0.15rem;
+  }
+
+  .escena-capitulo h2 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    color: var(--crema);
+    text-shadow: 0 2px 14px rgba(0,0,0,0.5);
+  }
+
+  .escena-caja {
+    position: absolute;
+    left: 50%;
+    bottom: 6%;
+    transform: translate(-50%, 14px);
+    width: min(760px, 88vw);
+    z-index: 2;
+    background: rgba(16, 30, 22, 0.68);
+    border: 1px solid rgba(246, 239, 225, 0.18);
+    border-radius: 18px;
+    padding: 1.6rem 1.9rem 1.3rem;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: opacity 0.6s ease 0.25s, transform 0.6s ease 0.25s;
+  }
+
+  .escena.abierta .escena-caja {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  .escena-texto {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.3rem, 2.6vw, 1.65rem);
+    line-height: 1.5;
+    color: var(--crema);
+    min-height: 3.2em;
+  }
+
+  .escena-texto .cursor {
+    display: inline-block;
+    width: 2px;
+    margin-left: 2px;
+    background: var(--dorado-suave);
+    animation: parpadeo-cursor 0.9s steps(1) infinite;
+  }
+
+  @keyframes parpadeo-cursor {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  /* ---------- Opciones de diálogo (elecciones de la jugadora) ---------- */
+  .escena-opciones {
+    display: none;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-top: 0.9rem;
+  }
+
+  .escena-opciones.visible { display: flex; }
+
+  .escena-opcion-btn {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.92rem;
+    text-align: left;
+    color: var(--crema);
+    background: rgba(246, 239, 225, 0.07);
+    border: 1px solid rgba(246, 239, 225, 0.3);
+    border-radius: 12px;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  }
+
+  .escena-opcion-btn:hover,
+  .escena-opcion-btn:focus-visible {
+    background: rgba(217, 180, 106, 0.18);
+    border-color: var(--dorado-suave);
+    transform: translateX(3px);
+    outline: none;
+  }
+
+  .escena-pie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.9rem;
+  }
+
+  .escena-progreso {
+    display: flex;
+    gap: 6px;
+  }
+
+  .escena-progreso span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(246,239,225,0.28);
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .escena-progreso span.hecho { background: var(--rosa); }
+  .escena-progreso span.actual { background: var(--dorado-suave); transform: scale(1.3); }
+
+  .escena-continuar {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    color: var(--dorado-suave);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .escena-continuar.visible {
+    opacity: 0.9;
+    animation: rebote-suave 1.6s ease-in-out infinite;
+  }
+
+  @keyframes rebote-suave {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
+  }
+
+  .escena-final {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+
+  /* ---------- Pantalla RPG: menú de inicio ---------- */
+  .rpg-pantalla {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    background: radial-gradient(ellipse at center, #1c3826 0%, var(--verde-oscuro) 60%, #060f0a 100%);
+    transition: opacity 0.9s ease, visibility 0.9s ease;
+    overflow: hidden;
+  }
+
+  .rpg-pantalla::before {
+    /* líneas sutiles tipo pantalla retro */
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.025) 0px,
+      rgba(255,255,255,0.025) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+  }
+
+  .rpg-pantalla.oculta {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .rpg-escena-interna {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    animation: aparecer 0.5s ease;
+  }
+  .rpg-escena-interna.activa { display: flex; }
+
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- Pantalla de introducción (video + título rainbow) ---------- */
+  .rpg-intro-pantalla {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .rpg-intro-pantalla.activa { display: flex; }
+
+  .rpg-intro-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.75) saturate(1.05);
+  }
+
+  .rpg-intro-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(6,10,8,0.2) 0%, rgba(6,10,8,0.7) 100%);
+  }
+
+  .rpg-intro-contenido {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.2rem;
+    padding: 2rem;
+  }
+
+  .rpg-intro-titulo-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  .rpg-intro-titulo {
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(1.15rem, 5.4vw, 2.3rem);
+    line-height: 1.7;
+    max-width: 14ch;
+    background: linear-gradient(90deg, #ff5c5c, #ffb347, #ffe066, #7be08a, #6ec3ff, #b98bff, #ff5c5c);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.55));
+    animation: rainbow-mover 4s linear infinite;
+  }
+
+  @keyframes rainbow-mover {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+  }
+
+  .rpg-intro-estrella {
+    position: absolute;
+    color: #fff6c9;
+    text-shadow: 0 0 8px rgba(255,255,255,0.85);
+    animation: destello-estrella 1.7s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes destello-estrella {
+    0%, 100% { opacity: 0.15; transform: scale(0.6) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.2) rotate(15deg); }
+  }
+
+  .rpg-intro-boton {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .rpg-intro-boton.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .rpg-intro-volver {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 3;
+    background: rgba(16, 38, 29, 0.55);
+    color: var(--crema);
+    border: 1px solid rgba(246,239,225,0.25);
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.75rem;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+  }
+
+  .rpg-corazon-titulo {
+    font-size: 2rem;
+    color: var(--rosa);
+    animation: latido 1.8s ease-in-out infinite;
+    margin-bottom: 0.8rem;
+  }
+
+  .rpg-titulo {
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(1rem, 3.4vw, 1.7rem);
+    line-height: 1.7;
+    color: var(--dorado-suave);
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.55);
+    margin-bottom: 0.6rem;
+    max-width: 20ch;
+  }
+
+  .rpg-subtitulo {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    color: rgba(246,239,225,0.65);
+    margin-bottom: 2.4rem;
+  }
+
+  .rpg-caja {
+    border: 3px solid var(--dorado-suave);
+    box-shadow: 0 0 0 5px var(--verde-oscuro), 0 0 0 8px var(--dorado-suave);
+    background: rgba(16, 30, 22, 0.85);
+    padding: 1.6rem 1.4rem;
+    min-width: min(320px, 82vw);
+  }
+
+  .rpg-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .rpg-menu li {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.75rem;
+    color: var(--crema);
+    padding: 0.6rem 0.4rem 0.6rem 1.6rem;
+    text-align: left;
+    position: relative;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .rpg-menu li.deshabilitado {
+    color: rgba(246,239,225,0.32);
+    cursor: default;
+  }
+
+  .rpg-menu li.seleccionado:not(.deshabilitado) {
+    color: var(--dorado-suave);
+  }
+
+  .rpg-menu li.seleccionado::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    animation: parpadeo-cursor2 0.8s steps(1) infinite;
+  }
+
+  @keyframes parpadeo-cursor2 {
+    0%, 60% { opacity: 1; }
+    61%, 100% { opacity: 0.15; }
+  }
+
+  .rpg-pregunta {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    line-height: 1.9;
+    color: var(--crema);
+    margin-bottom: 1.4rem;
+    max-width: 24ch;
+  }
+
+  .rpg-input {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1.05rem;
+    text-align: center;
+    color: var(--verde-oscuro);
+    background: var(--crema);
+    border: 3px solid var(--dorado-suave);
+    border-radius: 4px;
+    padding: 0.7rem 1rem;
+    width: min(260px, 70vw);
+    margin-bottom: 1.4rem;
+    outline: none;
+  }
+
+  .rpg-input:focus {
+    border-color: var(--rosa);
+  }
+
+  .boton-pixel {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.75rem;
+    color: var(--verde-oscuro);
+    background: linear-gradient(135deg, var(--dorado-suave), var(--dorado));
+    border: none;
+    padding: 0.9rem 1.6rem;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #a9832f, 0 10px 20px rgba(0,0,0,0.4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .boton-pixel:hover {
+    transform: translateY(-2px);
+  }
+
+  .boton-pixel:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #a9832f, 0 4px 10px rgba(0,0,0,0.4);
+  }
+
+  .rpg-volver {
+    margin-top: 1.2rem;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(246,239,225,0.55);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .rpg-creditos-texto {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: var(--crema);
+    max-width: 30ch;
+    margin-bottom: 1.4rem;
+  }
+
+  /* ---------- HUD del jugador (esquina, decorativo) ---------- */
+  .hud {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(16, 30, 22, 0.65);
+    border: 2px solid rgba(217, 180, 106, 0.5);
+    border-radius: 10px;
+    padding: 0.5rem 0.8rem;
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+
+  .hud.visible { opacity: 1; }
+
+  .hud-nombre {
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    color: var(--dorado-suave);
+    white-space: nowrap;
+    max-width: 22vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .hud-corazones {
+    font-size: 0.75rem;
+    color: var(--rosa);
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 520px) {
+    .hud-nombre { max-width: 34vw; }
+  }
+
+  /* ---------- Control de música ---------- */
+  .musica-toggle {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    z-index: 20;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(16, 38, 29, 0.75);
+    color: var(--dorado-suave);
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+
+  .musica-toggle:hover { transform: scale(1.08); background: rgba(31, 61, 44, 0.85); }
+
+  .musica-toggle .onda {
+    display: inline-block;
+    animation: girar 3.5s linear infinite;
+  }
+
+  .musica-toggle.pausado .onda { animation-play-state: paused; }
+
+  @keyframes girar {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* ---------- Pie de página ---------- */
+  footer {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem 1rem 3rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: rgba(246,239,225,0.6);
+  }
+
+  /* Accesibilidad: foco visible */
+  button:focus-visible {
+    outline: 2px solid var(--dorado-suave);
+    outline-offset: 4px;
+    border-radius: 8px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
