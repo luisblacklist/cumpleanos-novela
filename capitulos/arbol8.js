@@ -12,7 +12,7 @@ window.ARBOLES[7] = {
   fecha: "",
   foto: "fotos/arbol8.jpg",
   fondoEscena: "fondos/bosque_noche.jpg",
-  musica: "musica/romance.mp3",
+  musica: "musica/Untro.mp3",
 
   personajes: [],
 
@@ -90,10 +90,10 @@ window.ARBOLES[7] = {
           }
         },
         {
-          texto: "¿Y mi algodón de azúcar?",
+          texto: "Pidele a ChatGPT que te de clases de escritura",
           reaccion: {
             hablante: null,
-            texto: "Jajaja. Trato hecho. Te debo ese... y muchísimos más."
+            texto: "😞"
           }
         }
       ]
